@@ -42,6 +42,13 @@ const updateAnswerScreen = (text) => {
     answerScreen.textContent = text;
 }
 
+const runOperation = (wholeOperation) => {
+    wholeOperation = wholeOperation.split("?");
+    first = Number(wholeOperation[0]);
+    operator = wholeOperation[1];
+    second = Number(wholeOperation[2]);
+    return operate(operator, first,second);
+}
 //Create variables
 let first = "";
 let operator = "";
@@ -74,6 +81,7 @@ operands.forEach(btn => {
 
 operators.forEach(btn => {
     btn.addEventListener("click", (e)=>{
+        const result = runOperation(wholeOperation);
         const target = e.target
         if(target.id === "clear"){
             //Clear Screen
@@ -81,23 +89,32 @@ operators.forEach(btn => {
             updateAnswerScreen("");
         }else if(target.id === "equal"){
             //Run operation
-            wholeOperation = wholeOperation.split("?");
-            first = Number(wholeOperation[0]);
-            operator = wholeOperation[1];
-            second = Number(wholeOperation[2]);
-            const result = operate(operator, first,second);
+            
 
             //Update screens
             updateOperationScreen("");
             updateAnswerScreen(result);
 
         }else{
-            //Add deliminator
-            wholeOperation += "?"
-            operationScreen.textContent += btn.textContent;
-            wholeOperation += btn.textContent;
-            wholeOperation += "?"
-        }       
+            const opArray = wholeOperation.split("?")
+            console.log(opArray)
+            //If two numbers are already operating
+            if(opArray.includes("+") || opArray.includes("-") || opArray.includes("*") || opArray.includes("/")){
+                wholeOperation = String(result);
+                operationScreen.textContent = String(result)
+                wholeOperation += "?"
+                operationScreen.textContent += btn.textContent;
+                wholeOperation += btn.textContent;
+                wholeOperation += "?"
+            }else{
+                 //Add deliminator
+                wholeOperation += "?"
+                operationScreen.textContent += btn.textContent;
+                wholeOperation += btn.textContent;
+                wholeOperation += "?"
+            }       
+        }
+           
     });
 });
 
