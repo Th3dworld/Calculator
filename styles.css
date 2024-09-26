@@ -5,3 +5,36 @@ body {
     height: 90dvh;
     width: 100dvw;
 }
+
+#container{
+    display: flex;
+    flex-direction: column;
+    border: black solid 1px;
+    height: 200px;
+}
+
+#display{
+    display: flex;
+    height:auto;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    flex: 1 1 auto;
+}
+
+#operation{
+    border: green solid 1px;
+    height: auto;
+    flex: 1 1 auto;
+    text-align: left;
+}
+
+
+#answer {
+    border: red solid 1px;
+    height: auto;
+    flex: 1 1 auto;
+    text-align: right;
+}
+
+
