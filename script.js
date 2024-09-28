@@ -78,6 +78,7 @@ const answerScreen = document.getElementById("answer");
 for(let i = 9; i >= 0; i--){
     numberBtn.textContent = i;
     numberBtn.setAttribute("class", `number`);
+    numberBtn.setAttribute("id", `number${i}`);
     numbersDiv.appendChild(numberBtn.cloneNode(true));
     if(i === 0){
         numbersDiv.innerHTML += `<button id="decimal" class="number">.</button>`
@@ -88,7 +89,8 @@ for(let i = 9; i >= 0; i--){
 const operands = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 
-//operands
+//operands 
+//this is the event listener function for the numbers and the decimal point
 operands.forEach(btn => {
     btn.addEventListener("click", ()=>{
         //Validate Decimal
@@ -115,18 +117,18 @@ operands.forEach(btn => {
     });
 });
 
+//This is the event listener for the operator buttons
 operators.forEach(btn => {
     btn.addEventListener("click", (e)=>{
+        //Run operation
         const result = runOperation(wholeOperation);
+        //get target element
         const target = e.target
         if(target.id === "clear"){
             //Clear Screen
             updateOperationScreen("");
             updateAnswerScreen("");
         }else if(target.id === "equal"){
-            //Run operation
-            
-
             //Update screens
             updateOperationScreen("");
             updateAnswerScreen(result);
