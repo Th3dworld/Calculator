@@ -8,7 +8,8 @@ const divide = (a,b) => a / b;
 let first = "";
 let operator = "";
 let second = "";
-let wholeOperation =""
+let wholeOperation ="";
+const operations = ["+","-","/","*"];
 
 //Create final operate function
 const operate =  (operation, number1, number2) => {
@@ -133,7 +134,29 @@ operators.forEach(btn => {
             updateOperationScreen("");
             updateAnswerScreen(result);
 
-        }else{
+        }else if(target.id === "del"){
+            //remove deliminator"?"
+            const characters = wholeOperation.split("").filter(elem => elem !== "?");
+            //reset whole operation
+            wholeOperation = "";
+            //Check if operation includes ? deliminator
+            if(characters.length > 0){
+                characters.splice(-1,1);
+            }
+            for(let i = 0; i < characters.length;i++){
+                if(operations.includes(characters[i+1])){
+                    wholeOperation += characters[i];
+                    wholeOperation += "?";
+                }else if(operations.includes(characters[i])){
+                    wholeOperation += characters[i];
+                    wholeOperation += "?";
+                }else{
+                    wholeOperation += characters[i];
+
+                }
+            }
+            operationScreen.textContent = characters.join("");
+        } else{
             const opArray = wholeOperation.split("?")
             console.log(opArray)
             //If two numbers are already operating
