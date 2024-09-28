@@ -136,14 +136,17 @@ operators.forEach(btn => {
             console.log(opArray)
             //If two numbers are already operating
             if(opArray.includes("+") || opArray.includes("-") || opArray.includes("*") || opArray.includes("/")){
+                //Update answer screen and use Ans on calculation screen
+                updateAnswerScreen(result);
+                
                 wholeOperation = String(result);
-                operationScreen.textContent = String(result)
+                operationScreen.textContent = "Ans"
                 wholeOperation += "?"
                 operationScreen.textContent += btn.textContent;
                 wholeOperation += btn.textContent;
                 wholeOperation += "?"
             }else{
-                 //Add deliminator
+                 //Add deliminator 
                 wholeOperation += "?"
                 operationScreen.textContent += btn.textContent;
                 wholeOperation += btn.textContent;
