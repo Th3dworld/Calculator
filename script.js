@@ -28,7 +28,7 @@ const operate =  (operation, number1, number2) => {
         }
         case '/':{
             if(number2 == 0){
-                return "What you up to?Dividing by 0?"
+                return "What you up to?Dividing by 0?";
             }
             else{
                 return divide(number1,number2);
@@ -125,7 +125,7 @@ operators.forEach(btn => {
         //get target element
         const target = e.target
 
-        if(wholeOperation.length === 0 && (target.id !=="subtract" && target.id !== "clear" )){
+        if(wholeOperation.length === 0 && (target.id !=="subtract" && target.id !== "clear" ) &&  answerScreen.textContent === ""){
             //Do not put operator at beginning unless it is to negate
         }else if(target.id === "clear"){
             //Clear Screen
@@ -167,6 +167,14 @@ operators.forEach(btn => {
                 updateAnswerScreen(result);
                 
                 wholeOperation = String(result);
+                operationScreen.textContent = "Ans"
+                wholeOperation += "?"
+                operationScreen.textContent += btn.textContent;
+                wholeOperation += btn.textContent;
+                wholeOperation += "?"
+            }else if(wholeOperation.length === 0 && answerScreen.textContent != "" && answerScreen.textContent != "What you up to?Dividing by 0?"){
+                //In case where we are adding to our current result
+                wholeOperation = answerScreen.textContent;
                 operationScreen.textContent = "Ans"
                 wholeOperation += "?"
                 operationScreen.textContent += btn.textContent;
