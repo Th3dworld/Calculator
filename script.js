@@ -4,6 +4,12 @@ const subtract = (a,b) => a - b;
 const multiply = (a,b) => a * b;
 const divide = (a,b) => a / b;
 
+//Create variables
+let first = "";
+let operator = "";
+let second = "";
+let wholeOperation =""
+
 //Create final operate function
 const operate =  (operation, number1, number2) => {
     switch(operation){
@@ -22,6 +28,7 @@ const operate =  (operation, number1, number2) => {
         case '/':{
             if(number2 == 0){
                 return "What you up to?Dividing by 0?"
+                wholeOperation = "0"
             }
             else{
                 return divide(number1,number2);
@@ -48,17 +55,18 @@ const updateAnswerScreen = (text) => {
 }
 
 const runOperation = (wholeOperation) => {
-    wholeOperation = wholeOperation.split("?");
-    first = Number(wholeOperation[0]);
-    operator = wholeOperation[1];
-    second = Number(wholeOperation[2]);
-    return operate(operator, first,second);
+    if (wholeOperation.includes("?")){
+        wholeOperation = wholeOperation.split("?");
+        first = Number(wholeOperation[0]);
+        operator = wholeOperation[1];
+        second = Number(wholeOperation[2]);
+        return operate(operator, first,second);
+    }else{
+        return wholeOperation;
+    }
+   
 }
-//Create variables
-let first = "";
-let operator = "";
-let second = "";
-let wholeOperation =""
+
 
 //get Dom elements
 const numbersDiv = document.getElementById("numbers");
@@ -71,6 +79,9 @@ for(let i = 9; i >= 0; i--){
     numberBtn.textContent = i;
     numberBtn.setAttribute("class", `number`);
     numbersDiv.appendChild(numberBtn.cloneNode(true));
+    if(i === 0){
+        numbersDiv.innerHTML += `<button id="decimal" class="number">.</button>`
+    }
 }
 
 //get buttons
@@ -80,7 +91,27 @@ const operators = document.querySelectorAll(".operator");
 //operands
 operands.forEach(btn => {
     btn.addEventListener("click", ()=>{
-        updateOperationScreen(btn.textContent);
+        //Validate Decimal
+        if(btn.textContent === "." && wholeOperation.includes(".")){
+            //Check if we are working with second number
+            if(wholeOperation.includes("?")){
+                //Counter to count the number decimals
+                let count = 0
+                for(char in wholeOperation){
+                    if(wholeOperation[char] === "."){
+                        count++;
+                    }
+                }
+                if(count == 2){
+                    // number of decimals == 2 do nothing
+                }else{
+                    //add Decimal
+                    updateOperationScreen(btn.textContent);  
+                }         
+            }
+        }else{
+            updateOperationScreen(btn.textContent);
+        }
     });
 });
 
