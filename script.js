@@ -20,7 +20,12 @@ const operate =  (operation, number1, number2) => {
             break;
         }
         case '/':{
-            return divide(number1,number2);
+            if(number2 == 0){
+                return "What you up to?Dividing by 0?"
+            }
+            else{
+                return divide(number1,number2);
+            }
             break;
         }
     }
