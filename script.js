@@ -29,7 +29,6 @@ const operate =  (operation, number1, number2) => {
         case '/':{
             if(number2 == 0){
                 return "What you up to?Dividing by 0?"
-                wholeOperation = "0"
             }
             else{
                 return divide(number1,number2);
@@ -125,7 +124,10 @@ operators.forEach(btn => {
         const result = runOperation(wholeOperation);
         //get target element
         const target = e.target
-        if(target.id === "clear"){
+
+        if(wholeOperation.length === 0 && (target.id !=="subtract" && target.id !== "clear" )){
+            //Do not put operator at beginning unless it is to negate
+        }else if(target.id === "clear"){
             //Clear Screen
             updateOperationScreen("");
             updateAnswerScreen("");
